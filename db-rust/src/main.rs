@@ -10,7 +10,7 @@ fn main() {
         if input == ".exit" {
             std::process::exit(0);
         } else {
-            println!("This exited differentlyl");
+            println!("Unrecognized command: '{}'", input);
         }
     }
 }
@@ -28,7 +28,5 @@ fn get_input() -> String {
         let mut input = String::new();
         io::stdin().read_line(&mut input)
             .expect("Failed to read input.");
-
-        println!("You entered: {}", input);
         input
 }
