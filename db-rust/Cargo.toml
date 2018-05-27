@@ -1,0 +1,6 @@
+[package]
+name = "db-rust"
+version = "0.1.0"
+authors = ["Nathaniel Long <nathaniel.s.long@gmail.com>"]
+
+[dependencies]
