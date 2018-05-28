@@ -2,17 +2,33 @@ use std::io;
 use std::io::Write;
 
 fn main() {
+    let mut input_buffer = new_input_buffer();
     loop {
         print_prompt();
+        get_line(&mut input_buffer);
 
-        let mut input = get_input();
-        input = input.trim().to_string();
-        if input == ".exit" {
-            std::process::exit(0);
-        } else {
-            println!("Unrecognized command: '{}'", input);
-        }
+            if input_buffer.buffer == ".exit" {
+                std::process::exit(0);
+            } else {
+                println!("Unrecognized command: '{}'", input_buffer.buffer);
+            }
     }
+}
+
+struct InputBuffer {
+    buffer: String,
+    buffer_length: usize,
+    input_length: isize,
+}
+
+fn new_input_buffer() -> InputBuffer {
+    let input_buffer = InputBuffer {
+        buffer: String::new(),
+        buffer_length: 0,
+        input_length: 0,
+    };
+
+    input_buffer
 }
 
 fn print_prompt() {
@@ -24,9 +40,9 @@ fn print_prompt() {
                                      should ever hit...");
 }
 
-fn get_input() -> String {
-        let mut input = String::new();
-        io::stdin().read_line(&mut input)
-            .expect("Failed to read input.");
-        input
+fn get_line(input_buffer: &mut InputBuffer) {
+    let mut input = String::new();
+    io::stdin().read_line(&mut input)
+        .expect("Failed to read input.");
+    input_buffer.buffer = input.trim().to_string();
 }
